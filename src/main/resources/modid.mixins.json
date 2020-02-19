@@ -1,5 +1,5 @@
 {
-  "required": true,
+  "required": false,
   "package": "net.fabricmc.example.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
