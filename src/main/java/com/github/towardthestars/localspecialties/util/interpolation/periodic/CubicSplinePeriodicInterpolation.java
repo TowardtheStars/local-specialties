@@ -102,6 +102,7 @@ public class CubicSplinePeriodicInterpolation extends AbstractPeriodicInterpolat
     @Override
     public double apply(double x)
     {
+        x = this.clamp(x);
         int k = 0;
         for (int i = 0; i < n + 1; i++)
         {

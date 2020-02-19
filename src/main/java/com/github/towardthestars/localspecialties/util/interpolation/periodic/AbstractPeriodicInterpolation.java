@@ -9,11 +9,11 @@ import java.util.List;
 
 public abstract class AbstractPeriodicInterpolation implements IPeriodicInterpolation
 {
-    protected double[] xs; // (0 ~ n, size = n + 1)
-    protected double[] ys; // (0 ~ n, size = n + 1)
+    double[] xs; // (0 ~ n, size = n + 1)
+    double[] ys; // (0 ~ n, size = n + 1)
 
-    protected int n;
-    protected double[] hList; // hList[i] = xs[i + 1] - xs[i]
+    int n;
+    double[] hList; // hList[i] = xs[i + 1] - xs[i]
 
     @Override
     public IInterpolation load(Double[] xs, Double[] ys)
@@ -51,5 +51,21 @@ public abstract class AbstractPeriodicInterpolation implements IPeriodicInterpol
     }
 
     protected abstract void reload();
+
+    public double getPeriod()
+    {
+        return xs[n] - xs[0];
+    }
+
+    /**
+     * Clamp x into xs[0] ~ xs[n]
+     * @param x input
+     * @return value between xs[0] and xs[n]
+     */
+    double clamp(double x)
+    {
+        double period = getPeriod();
+        return x % period + xs[0];
+    }
 
 }

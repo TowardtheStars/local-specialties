@@ -4,4 +4,5 @@ import com.github.towardthestars.localspecialties.util.interpolation.IInterpolat
 
 public interface IPeriodicInterpolation extends IInterpolation
 {
+    double getPeriod();
 }
