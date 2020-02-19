@@ -1,0 +1,8 @@
+[
+  {
+    "name": "Name here",
+    "length": 1, // Length in MC-days, at least 1
+    "temperature": 0.5,
+    "rainfall": 0.0
+  }
+]

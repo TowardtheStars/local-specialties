@@ -1,0 +1,55 @@
+package com.github.towardthestars.localspecialties.util.interpolation.periodic;
+
+import com.github.towardthestars.localspecialties.util.Point2D;
+import com.github.towardthestars.localspecialties.util.interpolation.IInterpolation;
+import com.google.common.base.Preconditions;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class AbstractPeriodicInterpolation implements IPeriodicInterpolation
+{
+    protected double[] xs; // (0 ~ n, size = n + 1)
+    protected double[] ys; // (0 ~ n, size = n + 1)
+
+    protected int n;
+    protected double[] hList; // hList[i] = xs[i + 1] - xs[i]
+
+    @Override
+    public IInterpolation load(Double[] xs, Double[] ys)
+    {
+        Preconditions.checkArgument(xs.length == ys.length);
+        List<Point2D> points = new ArrayList<>();
+        for (int i = 0; i < xs.length; i++)
+        {
+            points.add(new Point2D(xs[i], ys[i]));
+        }
+        return load(points);
+    }
+
+    @Override
+    public IInterpolation load(List<Point2D> points)
+    {
+        points.sort((point1, point2) -> (int)(point1.x - point2.x));
+        n = points.size() - 1;
+        this.xs = new double[points.size()];
+        this.ys = new double[points.size()];
+        this.hList = new double[xs.length - 1];
+        int i = 0;
+        for (Point2D p : points)
+        {
+            this.xs[i] = p.x;
+            this.ys[i] = p.y;
+            i++;
+        }
+        for (i = 0; i < n; i++)
+        {
+            this.hList[i] = this.xs[i + 1] - this.xs[i];
+        }
+        reload();
+        return this;
+    }
+
+    protected abstract void reload();
+
+}

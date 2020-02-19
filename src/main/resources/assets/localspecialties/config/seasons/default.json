@@ -1,0 +1,26 @@
+[
+  {
+    "name": "spring",
+    "length": 24,
+    "temperature": 0.0,
+    "rainfall": 0.0
+  },
+  {
+    "name": "summer",
+    "length": 24,
+    "temperature": 0.5,
+    "rainfall": 0.0
+  },
+  {
+    "name": "autumn",
+    "length": 24,
+    "temperature": 0.0,
+    "rainfall": 0.0
+  },
+  {
+    "name": "winter",
+    "length": 24,
+    "temperature": -0.8,
+    "rainfall": 0.0
+  }
+]
