@@ -1,5 +1,7 @@
 package com.github.towardthestars.localspecialties.plant.scheme;
 
+import com.github.towardthestars.localspecialties.util.IStatisticsScheme;
+
 import java.util.Random;
 
 /**

@@ -1,5 +1,6 @@
 package com.github.towardthestars.localspecialties.plant.scheme;
 
+import com.github.towardthestars.localspecialties.util.IStatisticsScheme;
 import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 
 import java.util.Random;

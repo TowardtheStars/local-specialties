@@ -1,4 +1,4 @@
-package com.github.towardthestars.localspecialties.plant.scheme;
+package com.github.towardthestars.localspecialties.util;
 
 import java.util.Random;
 
