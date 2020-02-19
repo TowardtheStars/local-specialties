@@ -1,8 +1,5 @@
 package com.github.towardthestars.localspecialties.config;
 
-
-import org.lwjgl.system.CallbackI;
-
 import java.nio.file.Paths;
 
 public class Configs

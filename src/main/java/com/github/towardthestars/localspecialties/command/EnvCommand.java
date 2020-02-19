@@ -2,9 +2,7 @@ package com.github.towardthestars.localspecialties.command;
 
 import com.github.towardthestars.localspecialties.environment.attribute.EnvAttribute;
 import com.github.towardthestars.localspecialties.environment.attribute.EnvAttributes;
-import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.minecraft.command.arguments.ArgumentTypes;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.TranslatableText;

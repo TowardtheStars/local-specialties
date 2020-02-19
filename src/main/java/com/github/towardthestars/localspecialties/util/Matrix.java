@@ -14,6 +14,8 @@ public class Matrix
     public Matrix(int row, int col)
     {
         this.data = new double[row][col];
+        this.rowSize = row;
+        this.colSize = col;
     }
 
     public void set(int row, int col, double value)
@@ -31,22 +33,20 @@ public class Matrix
         return data[row];
     }
 
-    public Matrix linearRowTransform(int rowSrc, int rowDst, double coeff)
+    public void linearRowTransform(int rowSrc, int rowDst, double coeff)
     {
         for (int i = 0; i < this.colSize; i++)
         {
             this.data[rowDst][i] += coeff * this.data[rowSrc][i];
         }
-        return this;
     }
 
-    public Matrix linearColTransform(int colSrc, int colDst, double coeff)
+    public void linearColTransform(int colSrc, int colDst, double coeff)
     {
         for (int i = 0; i < this.rowSize; i++)
         {
             this.data[i][colDst] += coeff * this.data[i][colSrc];
         }
-        return this;
     }
 
     public Matrix swapRow(int row1, int row2)
@@ -90,12 +90,12 @@ public class Matrix
         UP,
         DOWN,
         LEFT,
-        RIGHT;
+        RIGHT
     }
 
     public Matrix joint (Matrix matrix, JointMethod method)
     {
-        int newRow = 0, newCol = 0;
+        int newRow, newCol;
         int originL = 0, originT = 0;
         int mL = 0, mT = 0;
         if (method == JointMethod.LEFT || method == JointMethod.RIGHT)

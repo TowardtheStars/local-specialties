@@ -5,11 +5,11 @@ import configuration.parser.ConfigParsers;
 
 import java.io.File;
 
-public abstract class AbstractConfig
+abstract class AbstractConfig
 {
-    protected final Config config;
+    final Config config;
     private File file;
-    public AbstractConfig(File file)
+    AbstractConfig(File file)
     {
         this.file = file;
         if (file.exists())
@@ -19,7 +19,7 @@ public abstract class AbstractConfig
             config = new Config();
         }
     }
-    public void save()
+    void save()
     {
         ConfigParsers.save(file, config);
     }

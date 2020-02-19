@@ -21,7 +21,7 @@ public class SeasonConfig extends AbstractConfig
     public final EnumSmoothWay TEMPERATURE_SMOOTH;
     public final EnumSmoothWay RAINFALL_SMOOTH;
 
-    public SeasonConfig(File file)
+    SeasonConfig(File file)
     {
         super(file);
         String seasonsProfile = config.getString("seasons_profile", "default.json");

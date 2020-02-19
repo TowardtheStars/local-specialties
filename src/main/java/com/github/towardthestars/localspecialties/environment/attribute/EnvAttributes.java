@@ -5,7 +5,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.LightType;
-import com.github.towardthestars.localspecialties.environment.Season;
 import com.github.towardthestars.localspecialties.soil.BlockFarmland;
 
 import java.util.Hashtable;

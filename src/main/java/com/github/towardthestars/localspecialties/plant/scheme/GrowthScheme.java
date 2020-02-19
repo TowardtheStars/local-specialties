@@ -17,14 +17,14 @@ public class GrowthScheme implements IStatisticsScheme<Integer>
     private float[] probability = new float[2];
     private float exp, var;
 
-    GrowthScheme()
+    private GrowthScheme()
     {
         this.probability[0] = 0;
         this.probability[1] = 0;
         this.updateStat();
     }
 
-    GrowthScheme(float p1, float p2)
+    private GrowthScheme(float p1, float p2)
     {
         this.probability[0] = p1;
         this.probability[1] = p2;

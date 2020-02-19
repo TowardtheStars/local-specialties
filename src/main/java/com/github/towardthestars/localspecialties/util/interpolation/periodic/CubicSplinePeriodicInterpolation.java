@@ -36,7 +36,7 @@ public class CubicSplinePeriodicInterpolation extends AbstractPeriodicInterpolat
         for (int i = 1; i < n; i++)
         {
             coeff.set(i - 1, i, lambdaList[i]);
-            coeff.set(i, i - 1, muList[i + 2]);
+            coeff.set(i, i - 1, muList[i + 1]);
         }
         coeff.set(n - 1, 0, lambdaList[n]);
         coeff.set(0, n - 1, muList[1]);
