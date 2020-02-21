@@ -103,15 +103,7 @@ public class CubicSplinePeriodicInterpolation extends AbstractPeriodicInterpolat
     public double apply(double x)
     {
         x = this.clamp(x);
-        int k = 0;
-        for (int i = 0; i < n + 1; i++)
-        {
-            if (x > xs[i])
-            {
-                k = i;
-                break;
-            }
-        }
+        int k = this.getBox(x);
         double delta = x - xs[k];
         return s1[k] * Math.pow(delta, 3) + s2[k] * Math.pow(delta, 2) + s3[k] * delta + ys[k];
     }

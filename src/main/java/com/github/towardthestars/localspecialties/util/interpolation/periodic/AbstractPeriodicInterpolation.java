@@ -64,8 +64,26 @@ public abstract class AbstractPeriodicInterpolation implements IPeriodicInterpol
      */
     double clamp(double x)
     {
-        double period = getPeriod();
-        return x % period + xs[0];
+        return x > xs[n] || x < xs[0]? x % getPeriod() + xs[0] : x;
+    }
+
+    int getBox(double x)
+    {
+        int min = 0;
+        int max = n;
+        x = clamp(x);
+        while (max - min > 1)
+        {
+            int crit = (min + max) / 2;
+            if (x >= this.xs[crit])
+            {
+                min = crit;
+            } else
+            {
+                max = crit;
+            }
+        }
+        return min;
     }
 
 }

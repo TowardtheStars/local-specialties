@@ -5,12 +5,11 @@ public class NonePeriodicInterpolation extends AbstractPeriodicInterpolation
     @Override
     protected void reload()
     {
-
     }
 
     @Override
     public double apply(double x)
     {
-        return 0;
+        return ys[getBox(x)];
     }
 }
