@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "com.github.towardthestars.localspecialties.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "HoeMixin",
+    "IceAndSnowMixin",
+    "NMM"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

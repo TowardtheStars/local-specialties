@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "fertility=1": {
+      "model": "localspecialties:block/farmland"
+    }
+  }
+}
