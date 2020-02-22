@@ -4,8 +4,8 @@ import java.util.Random;
 
 public interface IStatisticsScheme<ResultType>
 {
-    IStatisticsScheme setExpectation(float expectation);
-    IStatisticsScheme setVariance(float variance);
+    IStatisticsScheme<ResultType> setExpectation(float expectation);
+    IStatisticsScheme<ResultType> setVariance(float variance);
     float getExpectation();
     float getVariance();
 

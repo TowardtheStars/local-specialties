@@ -16,15 +16,23 @@ public class HarvestScheme implements IStatisticsScheme<Float>
     private float mu;
     private float sigma2;
     private double sigma;
+
+    protected HarvestScheme(){}
+
+    public static IStatisticsScheme<Float> fromExpVar(float exp, float var)
+    {
+        return new HarvestScheme().setExpectation(exp).setVariance(var);
+    }
+
     @Override
-    public IStatisticsScheme setExpectation(float expectation)
+    public IStatisticsScheme<Float> setExpectation(float expectation)
     {
         mu = expectation;
         return this;
     }
 
     @Override
-    public IStatisticsScheme setVariance(float variance)
+    public IStatisticsScheme<Float> setVariance(float variance)
     {
         sigma2 = variance;
         sigma = Math.sqrt(sigma2);

@@ -65,7 +65,7 @@ public class GrowthScheme implements IStatisticsScheme<Integer>
         return 0;
     }
 
-    public IStatisticsScheme setExpVar(float expectation, float variance)
+    public IStatisticsScheme<Integer> setExpVar(float expectation, float variance)
     {
         exp = expectation;
         var = variance;
@@ -87,13 +87,13 @@ public class GrowthScheme implements IStatisticsScheme<Integer>
     }
 
     @Override
-    public IStatisticsScheme setExpectation(float expectation)
+    public IStatisticsScheme<Integer> setExpectation(float expectation)
     {
         return this.setExpVar(expectation, var);
     }
 
     @Override
-    public IStatisticsScheme setVariance(float variance)
+    public IStatisticsScheme<Integer> setVariance(float variance)
     {
         return this.setExpVar(exp, variance);
     }

@@ -2,6 +2,7 @@ package com.github.towardthestars.localspecialties.plant.scheme;
 
 import com.github.towardthestars.localspecialties.util.IStatisticsScheme;
 import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
+import org.lwjgl.system.CallbackI;
 
 import java.util.Random;
 
@@ -14,8 +15,21 @@ import java.util.Random;
 public class WitheringScheme implements IStatisticsScheme<Boolean>
 {
     private float chance;
+
+    protected WitheringScheme(){}
+
+    /**
+     * Chance for true
+     * @param p chance for true
+     * @return An IStatisticsScheme<Boolean> with chance of p to get true
+     */
+    public static IStatisticsScheme<Boolean> fromP(float p)
+    {
+        return new WitheringScheme().setExpectation(p);
+    }
+
     @Override
-    public IStatisticsScheme setExpectation(float expectation)
+    public IStatisticsScheme<Boolean> setExpectation(float expectation)
     {
         if (expectation > 1 || expectation < 0)
         {
@@ -26,7 +40,7 @@ public class WitheringScheme implements IStatisticsScheme<Boolean>
     }
 
     @Override
-    public IStatisticsScheme setVariance(float variance)
+    public IStatisticsScheme<Boolean> setVariance(float variance)
     {
         if (variance > 0.25 || variance < 0)
         {
