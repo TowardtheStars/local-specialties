@@ -32,6 +32,7 @@ public class IceAndSnowMixin
                 dropStacks(state, world, pos);
                 world.removeBlock(pos, false);
             }
+            ci.cancel();
         }
         else if (state.getBlock() == Blocks.ICE)
         {
@@ -41,12 +42,12 @@ public class IceAndSnowMixin
                             || EnvAttributes.TEMPERATURE.getAttribute(world, pos) >= 0.15
             )
                 this.melt(state, world, pos);
+            ci.cancel();
         }
-
     }
 
 
-    protected void melt(BlockState state, World world, BlockPos pos)
+    private void melt(BlockState state, World world, BlockPos pos)
     {
         if (world.dimension.doesWaterVaporize()) {
             world.removeBlock(pos, false);
