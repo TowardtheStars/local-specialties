@@ -1,5 +1,7 @@
 package com.github.towardthestars.localspecialties.plant;
 
+import net.minecraft.state.property.IntProperty;
+
 /**
  * This is for plants such as flowers and vines.
  *  - Replanting is unnecessary
@@ -12,4 +14,11 @@ public class SpreadPlantBlock extends PlantBlockBase
     {
         super(settings);
     }
+
+    @Override
+    public int maxAge()
+    {
+        return 0;
+    }
+
 }

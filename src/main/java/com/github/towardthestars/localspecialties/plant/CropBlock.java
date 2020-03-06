@@ -1,6 +1,5 @@
 package com.github.towardthestars.localspecialties.plant;
 
-import com.github.towardthestars.localspecialties.plant.attribute.AffinityInfo;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Fertilizable;
@@ -63,11 +62,6 @@ public class CropBlock extends PlantBlockBase implements Fertilizable
         return true;
     }
 
-    @Override
-    public AffinityInfo getAffinityInfo()
-    {
-        return null;
-    }
 
     @Override
     public boolean isSimpleFullBlock(BlockState state, BlockView view, BlockPos pos) {

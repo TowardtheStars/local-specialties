@@ -1,5 +1,7 @@
 package com.github.towardthestars.localspecialties.plant;
 
+import net.minecraft.state.property.IntProperty;
+
 /**
  * This is for plants such tree saplings.
  *  - Need a block to attach on
@@ -11,4 +13,12 @@ public class SaplingBlock extends PlantBlockBase
     {
         super(settings);
     }
+
+    @Override
+    public int maxAge()
+    {
+        return 0;
+    }
+
+
 }

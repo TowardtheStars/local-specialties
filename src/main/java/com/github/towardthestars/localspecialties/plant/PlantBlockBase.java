@@ -1,7 +1,6 @@
 package com.github.towardthestars.localspecialties.plant;
 
 
-import com.github.towardthestars.localspecialties.plant.attribute.AffinityInfo;
 import com.github.towardthestars.localspecialties.plant.attribute.AttributeAffinityManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -38,7 +37,7 @@ public abstract class PlantBlockBase extends Block implements INutritionConsumer
         scheduledTickWithering(state, world, pos, random);
     }
 
-    protected void scheduledTickGrow(BlockState state, ServerWorld world, BlockPos pos, Random random)
+    private void scheduledTickGrow(BlockState state, ServerWorld world, BlockPos pos, Random random)
     {
         if (!this.isRipe(state))
         {
@@ -55,7 +54,7 @@ public abstract class PlantBlockBase extends Block implements INutritionConsumer
         }
     }
 
-    protected void scheduledTickWithering(BlockState state, ServerWorld world, BlockPos pos, Random random)
+    private void scheduledTickWithering(BlockState state, ServerWorld world, BlockPos pos, Random random)
     {
         if (this.affinityManager.shouldWither(state, world, pos, random))
         {
@@ -126,5 +125,4 @@ public abstract class PlantBlockBase extends Block implements INutritionConsumer
         return new ItemStack(Plants.PLANTING_MAP.inverse().get(this));
     }
 
-    public abstract AffinityInfo getAffinityInfo();
 }

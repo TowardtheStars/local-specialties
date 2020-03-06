@@ -1,6 +1,8 @@
 package com.github.towardthestars.localspecialties.plant;
 
 
+import net.minecraft.state.property.IntProperty;
+
 /**
  * This is for plants such berries, pumpkin stems and melon stems.
  *  - Replanting is unnecessary
@@ -13,4 +15,11 @@ public class BushBlock extends PlantBlockBase
     {
         super(settings);
     }
+
+    @Override
+    public int maxAge()
+    {
+        return 0;
+    }
+
 }
