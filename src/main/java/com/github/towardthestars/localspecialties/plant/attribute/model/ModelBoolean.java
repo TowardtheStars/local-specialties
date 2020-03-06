@@ -29,12 +29,13 @@ public class ModelBoolean implements IAffinityModel<Boolean>
 
     /**
      *
-     * @param args arg[0] is value for false, arg[1] is value for true
+     * @param argv arg[0] is value for false, arg[1] is value for true
      * @return this
      */
     @Override
-    public IAffinityModel<Boolean> withArgs(Double... args)
+    public IAffinityModel<Boolean> withArgs(Object... argv)
     {
+        Double[] args = (Double[]) argv;
         Preconditions.checkArgument(args.length >= 2, "Model for Boolean type attribute needs at least 2 value as args");
         this.valueForFalse = args[0];
         this.valueForTrue = args[1];
