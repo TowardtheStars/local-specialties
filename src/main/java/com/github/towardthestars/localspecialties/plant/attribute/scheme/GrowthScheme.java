@@ -1,6 +1,7 @@
-package com.github.towardthestars.localspecialties.plant.scheme;
+package com.github.towardthestars.localspecialties.plant.attribute.scheme;
 
 import com.github.towardthestars.localspecialties.util.IStatisticsScheme;
+import net.minecraft.util.math.MathHelper;
 
 import java.util.Random;
 
@@ -87,15 +88,29 @@ public class GrowthScheme implements IStatisticsScheme<Integer>
     }
 
     @Override
-    public IStatisticsScheme<Integer> setExpectation(float expectation)
+    public IStatisticsScheme<Integer> withExpectation(float expectation)
     {
-        return this.setExpVar(expectation, var);
+        GrowthScheme obj = this.copy();
+        return obj.setExpVar(expectation, var);
     }
 
     @Override
-    public IStatisticsScheme<Integer> setVariance(float variance)
+    public float clampExp(float exp)
     {
-        return this.setExpVar(exp, variance);
+        return MathHelper.clamp(exp, 0, 2);
+    }
+
+    @Override
+    public float clampVar(float var)
+    {
+        return MathHelper.clamp(var, 0, 1);
+    }
+
+    @Override
+    public IStatisticsScheme<Integer> withVariance(float variance)
+    {
+        GrowthScheme obj = this.copy();
+        return obj.setExpVar(exp, variance);
     }
 
     @Override

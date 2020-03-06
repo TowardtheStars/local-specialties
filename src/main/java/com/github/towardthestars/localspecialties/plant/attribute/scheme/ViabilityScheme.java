@@ -1,8 +1,8 @@
-package com.github.towardthestars.localspecialties.plant.scheme;
+package com.github.towardthestars.localspecialties.plant.attribute.scheme;
 
 import com.github.towardthestars.localspecialties.util.IStatisticsScheme;
 import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
-import org.lwjgl.system.CallbackI;
+import net.minecraft.util.math.MathHelper;
 
 import java.util.Random;
 
@@ -12,11 +12,11 @@ import java.util.Random;
  * And should have little chance under any suitable, even perfect env
  * This should be able to switched on/off in config files
  */
-public class WitheringScheme implements IStatisticsScheme<Boolean>
+public class ViabilityScheme implements IStatisticsScheme<Boolean>
 {
     private float chance;
 
-    protected WitheringScheme(){}
+    protected ViabilityScheme(){}
 
     /**
      * Chance for true
@@ -25,11 +25,11 @@ public class WitheringScheme implements IStatisticsScheme<Boolean>
      */
     public static IStatisticsScheme<Boolean> fromP(float p)
     {
-        return new WitheringScheme().setExpectation(p);
+        return new ViabilityScheme().withExpectation(p);
     }
 
     @Override
-    public IStatisticsScheme<Boolean> setExpectation(float expectation)
+    public IStatisticsScheme<Boolean> withExpectation(float expectation)
     {
         if (expectation > 1 || expectation < 0)
         {
@@ -40,7 +40,7 @@ public class WitheringScheme implements IStatisticsScheme<Boolean>
     }
 
     @Override
-    public IStatisticsScheme<Boolean> setVariance(float variance)
+    public IStatisticsScheme<Boolean> withVariance(float variance)
     {
         if (variance > 0.25 || variance < 0)
         {
@@ -66,5 +66,23 @@ public class WitheringScheme implements IStatisticsScheme<Boolean>
     public Boolean roll(Random random)
     {
         return random.nextFloat() < this.chance;
+    }
+
+    @Override
+    public IStatisticsScheme<Boolean> copy()
+    {
+        return new ViabilityScheme().withExpectation(this.chance);
+    }
+
+    @Override
+    public float clampExp(float exp)
+    {
+        return MathHelper.clamp(exp, 0, 1);
+    }
+
+    @Override
+    public float clampVar(float var)
+    {
+        return MathHelper.clamp(var, 0, .25f);
     }
 }
