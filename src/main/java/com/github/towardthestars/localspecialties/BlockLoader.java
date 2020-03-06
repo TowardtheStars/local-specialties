@@ -16,18 +16,18 @@ public class BlockLoader
     public static final Block FARMLAND = new BlockFarmland(Block.Settings.copy(Blocks.FARMLAND));
     public static final PlantBlockBase WHEAT = new CropBlock(Block.Settings.copy(Blocks.WHEAT).nonOpaque());
 
-    public static void register(Identifier identifier, Block block)
+    private static void register(Identifier identifier, Block block)
     {
         Registry.register(Registry.BLOCK, identifier, block);
     }
 
-    public static void registerAll()
+    static void registerAll()
     {
         register(LocalSpecialties.getIdentifier("farmland"), FARMLAND);
         register(LocalSpecialties.getIdentifier("wheat"), WHEAT);
     }
 
-    public static void setRenderLayer(RenderLayer layer, Block... blocks)
+    private static void setRenderLayer(RenderLayer layer, Block... blocks)
     {
         for (Block block : blocks)
         {
@@ -36,7 +36,7 @@ public class BlockLoader
 
     }
 
-    public static void clientInit()
+    static void clientInit()
     {
         setRenderLayer(RenderLayer.getCutout(), WHEAT);
     }
