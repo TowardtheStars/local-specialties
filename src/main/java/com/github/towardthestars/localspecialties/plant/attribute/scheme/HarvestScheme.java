@@ -1,6 +1,7 @@
-package com.github.towardthestars.localspecialties.plant.scheme;
+package com.github.towardthestars.localspecialties.plant.attribute.scheme;
 
 import com.github.towardthestars.localspecialties.util.IStatisticsScheme;
+import lombok.NonNull;
 
 import java.util.Random;
 
@@ -13,26 +14,29 @@ import java.util.Random;
  */
 public class HarvestScheme implements IStatisticsScheme<Float>
 {
+    @NonNull
     private float mu;
+    @NonNull
     private float sigma2;
+
     private double sigma;
 
     protected HarvestScheme(){}
 
     public static IStatisticsScheme<Float> fromExpVar(float exp, float var)
     {
-        return new HarvestScheme().setExpectation(exp).setVariance(var);
+        return new HarvestScheme().withExpectation(exp).withVariance(var);
     }
 
     @Override
-    public IStatisticsScheme<Float> setExpectation(float expectation)
+    public IStatisticsScheme<Float> withExpectation(float expectation)
     {
         mu = expectation;
         return this;
     }
 
     @Override
-    public IStatisticsScheme<Float> setVariance(float variance)
+    public IStatisticsScheme<Float> withVariance(float variance)
     {
         sigma2 = variance;
         sigma = Math.sqrt(sigma2);
@@ -70,5 +74,23 @@ public class HarvestScheme implements IStatisticsScheme<Float>
             result += mu;
         }while (result >= 0);
         return (float) result;
+    }
+
+    @Override
+    public IStatisticsScheme<Float> copy()
+    {
+        return new HarvestScheme().withExpectation(this.mu).withExpectation(this.sigma2);
+    }
+
+    @Override
+    public float clampExp(float exp)
+    {
+        return exp;
+    }
+
+    @Override
+    public float clampVar(float var)
+    {
+        return var > 0? var : Float.MIN_VALUE;
     }
 }
