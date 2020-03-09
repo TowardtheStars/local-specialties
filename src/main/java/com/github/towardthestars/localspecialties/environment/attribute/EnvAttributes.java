@@ -1,14 +1,23 @@
 package com.github.towardthestars.localspecialties.environment.attribute;
 
+import com.github.towardthestars.localspecialties.config.Configs;
+import com.github.towardthestars.localspecialties.environment.ItemEnvironmentChecker;
 import com.github.towardthestars.localspecialties.environment.Seasons;
+import com.github.towardthestars.localspecialties.environment.soil.BlockFarmland;
+import com.github.towardthestars.localspecialties.environment.soil.FarmLandHelper;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.resource.language.I18n;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Style;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.LightType;
-import com.github.towardthestars.localspecialties.soil.BlockFarmland;
 
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.Optional;
 
 public class EnvAttributes
 {
@@ -27,9 +36,13 @@ public class EnvAttributes
         public Float getAttribute(IWorld world, BlockPos pos)
         {
             float biomeBase = world.getBiome(pos).getTemperature(pos);
+            if (!Configs.MAIN.ENABLE_SEASON)
+            {
+                return biomeBase;
+            }
             long time = world.getLevelProperties().getTime();
             float seasonBase = Seasons.getTemperature(time);
-            return biomeBase + seasonBase;
+            return biomeBase + seasonBase * HUMIDITY.getAttribute(world, pos);
         }
     };
 
@@ -38,7 +51,11 @@ public class EnvAttributes
         @Override
         public Float getAttribute(IWorld world, BlockPos pos)
         {
-            return world.getBiome(pos).getRainfall();
+            if (!Configs.MAIN.ENABLE_SEASON)
+            {
+                return world.getBiome(pos).getRainfall();
+            }
+            return world.getBiome(pos).getRainfall() + Seasons.getRainfall(world.getLevelProperties().getTime());
         }
     };
 
@@ -84,6 +101,11 @@ public class EnvAttributes
             BlockState state = world.getBlockState(soilPos);
             if (!(state.getBlock() instanceof BlockFarmland))
             {
+                Optional<BlockState> farmlandState = Optional.ofNullable(FarmLandHelper.getFarmlandForDirt(state));
+                if (farmlandState.isPresent())
+                {
+                    return farmlandState.get().get(BlockFarmland.FERTILITY);
+                }
                 return 0;
             }
             return state.get(BlockFarmland.FERTILITY);
@@ -121,6 +143,22 @@ public class EnvAttributes
         }
     };
 
+    public static String getTranslationKey(EnvAttribute attribute)
+    {
+        return "envattribute." + attribute.getName() + ".name";
+    }
+
+    public static Text getAttributeInfo(EnvAttribute attribute, IWorld world, BlockPos pos)
+    {
+        return new LiteralText(
+                I18n.translate(
+                        EnvAttributes.getTranslationKey(attribute)
+                ) + ": "
+        ).setStyle(new Style().setColor(Formatting.AQUA)).append(
+                new LiteralText(String.valueOf(attribute.getAttribute(world, pos))).setStyle(new Style().setColor(Formatting.WHITE))
+        );
+    }
+
     public static void registerAll(){
         register(
                 TEMPERATURE,
@@ -133,5 +171,7 @@ public class EnvAttributes
                 IS_RAINING,
                 IS_SKY_VISIBLE
         );
+
+        ItemEnvironmentChecker.registerAttributeUseOnAir(TEMPERATURE, HUMIDITY, IS_SKY_VISIBLE);
     }
 }
