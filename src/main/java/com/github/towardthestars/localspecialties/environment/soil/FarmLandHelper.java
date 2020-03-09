@@ -1,4 +1,4 @@
-package com.github.towardthestars.localspecialties.soil;
+package com.github.towardthestars.localspecialties.environment.soil;
 
 import com.github.towardthestars.localspecialties.BlockLoader;
 import net.minecraft.block.BlockState;
@@ -57,7 +57,7 @@ public class FarmLandHelper
     /**
      *
      * @param state block state
-     * @return fertility
+     * @return Farmland BlockState with fertility
      */
     public static BlockState getFarmlandForDirt(BlockState state)
     {
