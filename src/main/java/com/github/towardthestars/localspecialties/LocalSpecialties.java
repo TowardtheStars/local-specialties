@@ -3,12 +3,17 @@ package com.github.towardthestars.localspecialties;
 import com.github.towardthestars.localspecialties.command.Commands;
 import com.github.towardthestars.localspecialties.config.Configs;
 import com.github.towardthestars.localspecialties.environment.Seasons;
+import com.github.towardthestars.localspecialties.plant.PlantBlockBase;
+import com.github.towardthestars.localspecialties.plant.Plants;
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.net.URL;
+import java.util.Map;
 
 public class LocalSpecialties implements ModInitializer
 {
@@ -18,7 +23,7 @@ public class LocalSpecialties implements ModInitializer
     @Override
     public void onInitialize()
     {
-        System.out.println(Configs.CONFIG_DIR);
+        LOGGER.info("Initializing Local Specialties");
         Configs.save();
         if (Configs.MAIN.ENABLE_SEASON)
         {
@@ -29,6 +34,7 @@ public class LocalSpecialties implements ModInitializer
         BlockLoader.registerAll();
         ItemLoader.registerAll();
         EventHandlers.registerAll();
+        Plants.registerAll();
     }
 
     public static URL getResource(String path)
