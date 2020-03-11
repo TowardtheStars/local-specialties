@@ -1,27 +1,27 @@
-package com.github.towardthestars.localspecialties.plant.attribute.model;
+package com.github.towardthestars.localspecialties.plant.attribute.affinity_model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @NoArgsConstructor
+@AllArgsConstructor
 public class ModelNumberQuadratic extends ModelNumber
 {
-    @Getter @Setter
+    @Getter @With
     double leftPoint;
-    @Getter @Setter
+    @Getter @With
     double rightPoint;
-    @Getter @Setter
+    @Getter @With
     double a;
 
     @Override
     public ModelNumber withArgs(Object... argv)
     {
         Double[] args = (Double[]) argv;
-        this.a = args[0];
-        this.leftPoint = args[1];
-        this.rightPoint = args[2];
-        return this;
+        ModelNumberQuadratic result = new ModelNumberQuadratic();
+        result.a = args[0];
+        result.leftPoint = args[1];
+        result.rightPoint = args[2];
+        return result;
     }
 
     public void setPeak(double peakValue)

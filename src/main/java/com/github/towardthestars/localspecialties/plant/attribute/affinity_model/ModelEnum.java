@@ -1,6 +1,5 @@
-package com.github.towardthestars.localspecialties.plant.attribute.model;
+package com.github.towardthestars.localspecialties.plant.attribute.affinity_model;
 
-import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
 
@@ -28,6 +27,10 @@ public class ModelEnum<ENUM_TYPE extends Enum<ENUM_TYPE>> implements IAffinityMo
     @Override
     public IAffinityModel<ENUM_TYPE> withArgs(Object... args)
     {
+        for (int i = 0; i < args.length - 1; i+=2)
+        {
+            map.put((ENUM_TYPE) args[i], (float) args[i + 1]);
+        }
         return this;
     }
 }

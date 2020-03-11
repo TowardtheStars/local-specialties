@@ -1,4 +1,4 @@
-package com.github.towardthestars.localspecialties.plant.attribute.model;
+package com.github.towardthestars.localspecialties.plant.attribute.affinity_model;
 
 import com.google.common.base.Preconditions;
 import lombok.Builder;

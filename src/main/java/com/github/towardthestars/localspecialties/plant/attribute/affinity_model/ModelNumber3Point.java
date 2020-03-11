@@ -1,22 +1,21 @@
-package com.github.towardthestars.localspecialties.plant.attribute.model;
+package com.github.towardthestars.localspecialties.plant.attribute.affinity_model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.Wither;
+import lombok.With;
 
 @NoArgsConstructor
 @AllArgsConstructor
 public class ModelNumber3Point extends ModelNumber
 {
-    @Getter
+    @Getter @With
     double leftPoint;
-    @Getter
+    @Getter @With
     double rightPoint;
-    @Getter
+    @Getter @With
     double middlePoint;
-    @Getter
+    @Getter @With
     double middlePointValue;
 
     @Override

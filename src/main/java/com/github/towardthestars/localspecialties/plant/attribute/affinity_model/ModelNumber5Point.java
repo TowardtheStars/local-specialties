@@ -1,4 +1,4 @@
-package com.github.towardthestars.localspecialties.plant.attribute.model;
+package com.github.towardthestars.localspecialties.plant.attribute.affinity_model;
 
 import com.google.common.base.Preconditions;
 import lombok.Getter;
@@ -118,13 +118,13 @@ public class ModelNumber5Point extends ModelNumber
         {
             if (x > leftOnePoint)
             {
-                return peakValue_1 * (x - leftOnePoint) / leftDelta1Peak;
+                return peakValue_1 * (x - leftOnePoint) / leftDelta1Peak + getBase();
             }
             else
             {
                 if (x > leftZeroPoint)
                 {
-                    return (x - leftZeroPoint) / leftDelta01;
+                    return (x - leftZeroPoint) / leftDelta01 + getBase();
                 }
             }
         }
@@ -132,17 +132,17 @@ public class ModelNumber5Point extends ModelNumber
         {
             if (x < rightOnePoint)
             {
-                return peakValue_1 * (x - rightOnePoint) / rightDeltaPeak1;
+                return peakValue_1 * (x - rightOnePoint) / rightDeltaPeak1 + getBase();
             }
             else
             {
                 if (x < rightZeroPoint)
 
                 {
-                    return (rightZeroPoint - x) / rightDelta10;
+                    return (rightZeroPoint - x) / rightDelta10 + getBase();
                 }
             }
         }
-        return 0;
+        return getBase();
     }
 }
