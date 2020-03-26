@@ -120,9 +120,9 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
-    implementation 'com.github.Mouse0w0.Configuration:configuration-api:1.1.0'
-    implementation 'com.github.Mouse0w0.Configuration:configuration-toml4j:1.1.0'
-    implementation 'com.github.Mouse0w0.Configuration:configuration-gson:1.1.0'
+//    implementation 'com.github.Mouse0w0.Configuration:configuration-api:1.1.0'
+//    implementation 'com.github.Mouse0w0.Configuration:configuration-toml4j:1.1.0'
+//    implementation 'com.github.Mouse0w0.Configuration:configuration-gson:1.1.0'
 
     // Lombok
     annotationProcessor 'org.projectlombok:lombok:1.18.12'
