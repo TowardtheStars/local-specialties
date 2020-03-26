@@ -1,12 +1,10 @@
 package com.github.towardthestars.localspecialties.plant.attribute.affinity_model;
 
 import com.google.common.base.Preconditions;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class ModelBoolean implements IAffinityModel<Boolean>
 {

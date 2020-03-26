@@ -19,4 +19,9 @@ public abstract class AbstractEnvAttribute<T> implements EnvAttribute<T>
 
     public abstract T getAttribute(IWorld world, BlockPos pos);
 
+    @Override
+    public String getTranslateKey()
+    {
+        return "env_attribute." + this.getName() + ".name";
+    }
 }

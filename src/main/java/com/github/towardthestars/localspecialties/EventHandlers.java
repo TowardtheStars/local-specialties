@@ -1,15 +1,18 @@
 package com.github.towardthestars.localspecialties;
 
+import com.github.towardthestars.localspecialties.config.Configs;
 import com.github.towardthestars.localspecialties.plant.Plants;
 import com.github.towardthestars.localspecialties.environment.soil.BlockFarmland;
 import com.github.towardthestars.localspecialties.environment.soil.FarmLandHelper;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.fabricmc.fabric.api.event.server.ServerStartCallback;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FarmlandBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.HoeItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -24,8 +27,13 @@ class EventHandlers
     static void registerAll(){
         UseBlockCallback.EVENT.register(EventHandlers::useHoe);
         UseBlockCallback.EVENT.register(EventHandlers::useSeed);
+        ServerStartCallback.EVENT.register(EventHandlers::loadAffinityConfig);
     }
 
+    private static void loadAffinityConfig(MinecraftServer server)
+    {
+        Configs.PLANT_AFFINITY.save();
+    }
 
     private static ActionResult useHoe(PlayerEntity playerEntity, World world, Hand hand, BlockHitResult blockHitResult)
     {

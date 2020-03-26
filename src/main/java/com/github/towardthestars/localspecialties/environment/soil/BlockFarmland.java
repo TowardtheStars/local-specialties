@@ -3,6 +3,7 @@ package com.github.towardthestars.localspecialties.environment.soil;
 import com.github.towardthestars.localspecialties.plant.INutritionConsumer;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BoneMealItem;
@@ -16,6 +17,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
@@ -29,6 +31,10 @@ public class BlockFarmland extends FarmlandBlock
     {
         super(settings);
         this.setDefaultState(this.stateManager.getDefaultState().with(MOISTURE, 0).with(FERTILITY, 0));
+    }
+
+    public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, EntityContext context) {
+        return SHAPE;
     }
 
     public static IntProperty FERTILITY = IntProperty.of("fertility", 0, 7);

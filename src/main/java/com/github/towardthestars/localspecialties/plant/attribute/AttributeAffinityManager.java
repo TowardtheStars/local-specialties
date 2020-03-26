@@ -1,6 +1,8 @@
 package com.github.towardthestars.localspecialties.plant.attribute;
 
+import com.github.towardthestars.localspecialties.Registries;
 import com.github.towardthestars.localspecialties.plant.PlantBlockBase;
+import com.github.towardthestars.localspecialties.plant.attribute.merge_model.IMergeModel;
 import com.github.towardthestars.localspecialties.plant.attribute.scheme.GrowthScheme;
 import com.github.towardthestars.localspecialties.plant.attribute.scheme.HarvestScheme;
 import com.github.towardthestars.localspecialties.plant.attribute.scheme.ViabilityScheme;
@@ -8,15 +10,17 @@ import com.github.towardthestars.localspecialties.util.IStatisticsScheme;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IWorld;
 
 import java.util.*;
 
+
 public class AttributeAffinityManager
 {
-    PlantBlockBase plantBlock;
-
-    private final Map<PlantAttribute, AffinityMergerModel> affinityMap = new HashMap<>();
+    private final Map<PlantAttribute, IMergeModel> affinityMap = new HashMap<>();
 
     public AttributeAffinityManager()
     {
@@ -25,15 +29,9 @@ public class AttributeAffinityManager
     @Deprecated
     public int getGrowth(BlockState state, ServerWorld world, BlockPos pos, Random random)
     {
-//        return getGrowthScheme(state, world, pos).roll(random);
-        return affinityMap.get(PlantAttributes.GROWTH).rollValue(PlantAttributes.GROWTH, state, world, pos, random);
+        return this.getPlantAttributeValue(PlantAttributes.GROWTH, state, world, pos, random);
     }
 
-    @Deprecated
-    private IStatisticsScheme<Integer> getGrowthScheme(BlockState state, ServerWorld world, BlockPos pos)
-    {
-        return GrowthScheme.fromExpVar(1, 0);
-    }
 
     @Deprecated
     public float getHarvest(BlockState state, ServerWorld world, BlockPos pos, Random random)
@@ -60,4 +58,21 @@ public class AttributeAffinityManager
     }
 
 
+    public <ATTR_RET_TYPE> ATTR_RET_TYPE getPlantAttributeValue(PlantAttribute<ATTR_RET_TYPE> attribute, BlockState state, IWorld world, BlockPos pos, Random random)
+    {
+        if (this.affinityMap.containsKey(attribute))
+            return this.affinityMap.get(attribute).rollValue(attribute.getDefaultScheme(), state, world, pos, random);
+        return attribute.getDefaultScheme().roll(random);
+    }
+
+    public AttributeAffinityManager setPlantAttributeAffinityModel(PlantAttribute attribute, IMergeModel model)
+    {
+        this.affinityMap.put(attribute, model);
+        return this;
+    }
+
+    public Text toText()
+    {
+        return new LiteralText("");
+    }
 }

@@ -1,5 +1,7 @@
 package com.github.towardthestars.localspecialties.environment.attribute;
 
+import com.github.towardthestars.localspecialties.LocalSpecialties;
+import com.github.towardthestars.localspecialties.Registries;
 import com.github.towardthestars.localspecialties.config.Configs;
 import com.github.towardthestars.localspecialties.environment.ItemEnvironmentChecker;
 import com.github.towardthestars.localspecialties.environment.Seasons;
@@ -12,6 +14,9 @@ import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.DefaultedRegistry;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.SimpleRegistry;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.LightType;
 
@@ -21,14 +26,7 @@ import java.util.Optional;
 
 public class EnvAttributes
 {
-    public static final Map<String, EnvAttribute> ENV_ATTRIBUTE_MAP = new Hashtable<>();
-    public static void register(EnvAttribute ...envAttributes)
-    {
-        for (EnvAttribute envAttribute: envAttributes)
-        {
-            ENV_ATTRIBUTE_MAP.put(envAttribute.getName(), envAttribute);
-        }
-    }
+
 
     public static final FloatEnvAttribute TEMPERATURE = new FloatEnvAttribute("temperature")
     {
@@ -143,35 +141,39 @@ public class EnvAttributes
         }
     };
 
-    public static String getTranslationKey(EnvAttribute attribute)
-    {
-        return "envattribute." + attribute.getName() + ".name";
-    }
-
     public static Text getAttributeInfo(EnvAttribute attribute, IWorld world, BlockPos pos)
     {
         return new LiteralText(
                 I18n.translate(
-                        EnvAttributes.getTranslationKey(attribute)
+                        attribute.getTranslateKey()
                 ) + ": "
         ).setStyle(new Style().setColor(Formatting.AQUA)).append(
                 new LiteralText(String.valueOf(attribute.getAttribute(world, pos))).setStyle(new Style().setColor(Formatting.WHITE))
         );
     }
 
+
+    private static void register(EnvAttribute... attributes)
+    {
+        for (EnvAttribute attribute: attributes)
+        {
+            Registry.register(Registries.ENV_ATTRIBUTE, LocalSpecialties.getIdentifier(attribute.getName()), attribute);
+        }
+
+    }
+
     public static void registerAll(){
         register(
                 TEMPERATURE,
-                HUMIDITY,
-                LIGHT_LEVEL,
-                FERTILITY,
                 MOISTURE,
-                SKYLIGHT,
+                HUMIDITY,
+                IS_SKY_VISIBLE,
                 IS_DAY,
                 IS_RAINING,
-                IS_SKY_VISIBLE
+                SKYLIGHT,
+                FERTILITY,
+                LIGHT_LEVEL
         );
-
         ItemEnvironmentChecker.registerAttributeUseOnAir(TEMPERATURE, HUMIDITY, IS_SKY_VISIBLE);
     }
 }

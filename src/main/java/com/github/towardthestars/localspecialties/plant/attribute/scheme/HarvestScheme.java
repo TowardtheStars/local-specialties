@@ -14,11 +14,8 @@ import java.util.Random;
  */
 public class HarvestScheme implements IStatisticsScheme<Float>
 {
-    @NonNull
     private float mu;
-    @NonNull
     private float sigma2;
-
     private double sigma;
 
     protected HarvestScheme(){}

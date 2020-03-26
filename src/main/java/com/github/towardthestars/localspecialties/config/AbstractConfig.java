@@ -12,7 +12,7 @@ abstract class AbstractConfig
     AbstractConfig(File file)
     {
         this.file = file;
-        if (file.exists())
+        if (file.exists() && file.isFile())
         {
             config = ConfigParsers.load(file);
         }else{

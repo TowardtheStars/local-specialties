@@ -57,7 +57,7 @@ public class ItemEnvironmentChecker extends Item
         if (state.getBlock() instanceof PlantBlockBase)
         {
             player.ifPresent(playerEntity -> playerEntity.sendMessage(
-                    ((PlantBlockBase) state.getBlock()).getAffinityInfo().toText()
+                    ((PlantBlockBase) state.getBlock()).getAffinityManager().toText()
             ));
             return ActionResult.SUCCESS;
         }

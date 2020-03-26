@@ -2,6 +2,9 @@ package com.github.towardthestars.localspecialties.plant;
 
 
 import com.github.towardthestars.localspecialties.plant.attribute.AttributeAffinityManager;
+import com.github.towardthestars.localspecialties.plant.attribute.PlantAttributes;
+import lombok.Getter;
+import lombok.Setter;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
@@ -22,6 +25,7 @@ import java.util.Random;
 
 public abstract class PlantBlockBase extends Block implements INutritionConsumer, IAgedPlantBlock
 {
+    @Setter @Getter
     AttributeAffinityManager affinityManager = new AttributeAffinityManager();
 
     PlantBlockBase(Settings settings)
@@ -41,7 +45,7 @@ public abstract class PlantBlockBase extends Block implements INutritionConsumer
     {
         if (!this.isRipe(state))
         {
-            int growth = this.affinityManager.getGrowth(state, world, pos, random);
+            int growth = this.affinityManager.getPlantAttributeValue(PlantAttributes.GROWTH, state, world, pos, random);
             growth += this.getAge(state);
             if (growth > maxAge())
             {
@@ -56,7 +60,7 @@ public abstract class PlantBlockBase extends Block implements INutritionConsumer
 
     private void scheduledTickWithering(BlockState state, ServerWorld world, BlockPos pos, Random random)
     {
-        if (this.affinityManager.shouldWither(state, world, pos, random))
+        if (this.affinityManager.getPlantAttributeValue(PlantAttributes.VIABILITY, state, world, pos, random));
         {
             world.setBlockState(pos, Plants.WITHERING_MAP.getOrDefault(this, Blocks.AIR).getDefaultState());
         }

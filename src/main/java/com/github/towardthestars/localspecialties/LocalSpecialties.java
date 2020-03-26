@@ -3,8 +3,12 @@ package com.github.towardthestars.localspecialties;
 import com.github.towardthestars.localspecialties.command.Commands;
 import com.github.towardthestars.localspecialties.config.Configs;
 import com.github.towardthestars.localspecialties.environment.Seasons;
+import com.github.towardthestars.localspecialties.environment.attribute.EnvAttributes;
 import com.github.towardthestars.localspecialties.plant.PlantBlockBase;
 import com.github.towardthestars.localspecialties.plant.Plants;
+import com.github.towardthestars.localspecialties.plant.attribute.AssembleHelper;
+import com.github.towardthestars.localspecialties.plant.attribute.affinity_model.AffinityModels;
+import com.github.towardthestars.localspecialties.plant.attribute.merge_model.MergeModels;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -29,13 +33,18 @@ public class LocalSpecialties implements ModInitializer
         {
             Seasons.load();
         }
+        EnvAttributes.registerAll();
+        AffinityModels.registerAll();
+        MergeModels.registerAll();
 
         Commands.registerAll();
         BlockLoader.registerAll();
         ItemLoader.registerAll();
         EventHandlers.registerAll();
         Plants.registerAll();
+        AssembleHelper.attachAffinityManager();
     }
+
 
     public static URL getResource(String path)
     {

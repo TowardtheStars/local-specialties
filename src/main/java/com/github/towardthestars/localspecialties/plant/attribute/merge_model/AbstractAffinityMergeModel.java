@@ -3,6 +3,7 @@ package com.github.towardthestars.localspecialties.plant.attribute.merge_model;
 import com.github.towardthestars.localspecialties.plant.attribute.Affinity;
 import com.github.towardthestars.localspecialties.util.IStatisticsScheme;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-@AllArgsConstructor
+@NoArgsConstructor
 public abstract class AbstractAffinityMergeModel implements IMergeModel
 {
     @Delegate
