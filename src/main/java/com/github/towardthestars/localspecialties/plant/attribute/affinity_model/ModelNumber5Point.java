@@ -8,18 +8,24 @@ import lombok.NonNull;
 @NoArgsConstructor
 public class ModelNumber5Point extends ModelNumber
 {
+    @NonNull
     @Getter
-    private double leftZeroPoint;
+    double leftZeroPoint;
+    @NonNull
     @Getter
-    private double rightZeroPoint;
+    double rightZeroPoint;
+    @NonNull
     @Getter
-    private double leftOnePoint;
+    double leftOnePoint;
+    @NonNull
     @Getter
-    private double rightOnePoint;
+    double rightOnePoint;
+    @NonNull
     @Getter
-    private double middlePeakPoint;
+    double middlePeakPoint;
+    @NonNull
     @Getter
-    private double peakPointValue;
+    double peakPointValue;
 
 
     private double leftDelta01;

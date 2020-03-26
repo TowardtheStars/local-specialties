@@ -5,8 +5,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Fertilizable;
 import net.minecraft.entity.EntityContext;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.state.property.Properties;
+import net.minecraft.state.IntegerProperty;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.shape.VoxelShape;
@@ -51,9 +51,9 @@ public class CropBlock extends PlantBlockBase implements Fertilizable
     }
 
     @Override
-    public IntProperty getAgeProperty()
+    public IntegerProperty getAgeProperty()
     {
-        return Properties.AGE_7;
+        return BlockStateProperties.AGE_0_7;
     }
 
     @Override

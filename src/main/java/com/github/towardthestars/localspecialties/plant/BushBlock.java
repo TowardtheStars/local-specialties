@@ -1,7 +1,6 @@
 package com.github.towardthestars.localspecialties.plant;
 
-
-import net.minecraft.state.property.IntProperty;
+import net.minecraft.state.IntegerProperty;
 
 /**
  * This is for plants such berries, pumpkin stems and melon stems.
