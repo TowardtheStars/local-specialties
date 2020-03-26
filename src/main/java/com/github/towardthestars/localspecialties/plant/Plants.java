@@ -17,9 +17,11 @@ public class Plants
     public static final Map<PlantBlockBase, Block> WITHERING_MAP = new HashMap<>();
 
 
-    public static void registerAll()
-    {
+    public static void registerItems() {
         PLANTING_MAP.put(Items.WHEAT_SEEDS, BlockLoader.WHEAT);
+    }
+
+    public static void registerBlocks() {
         WITHERING_MAP.put(BlockLoader.WHEAT, Blocks.GRASS);
     }
 }

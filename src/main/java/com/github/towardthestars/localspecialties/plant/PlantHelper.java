@@ -20,7 +20,7 @@ public class PlantHelper
     {
         Biome biome = world.getBiome(pos);
         float temperature = biome.getTemperature(pos);
-        float rainfall = biome.getRainfall();
+        float rainfall = biome.getDownfall();
         return new BiomeInfo(temperature, rainfall);
     }
 

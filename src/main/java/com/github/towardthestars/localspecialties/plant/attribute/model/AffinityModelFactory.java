@@ -1,5 +1,5 @@
 package com.github.towardthestars.localspecialties.plant.attribute.model;
-
+import com.github.towardthestars.localspecialties.plant.attribute.affinity_model.*;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor

@@ -1,8 +1,8 @@
 package com.github.towardthestars.localspecialties.plant;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.state.property.Properties;
+import net.minecraft.state.IntegerProperty;
+import net.minecraft.state.properties.BlockStateProperties;
 
 public interface IAgedPlantBlock
 {
@@ -12,9 +12,9 @@ public interface IAgedPlantBlock
         return 7;
     }
 
-    default IntProperty getAgeProperty()
+    default IntegerProperty getAgeProperty()
     {
-        return Properties.AGE_7;
+        return BlockStateProperties.AGE_0_7;
     }
 
     default int getAge(BlockState state){

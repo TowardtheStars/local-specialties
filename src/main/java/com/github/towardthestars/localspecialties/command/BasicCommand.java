@@ -2,17 +2,17 @@ package com.github.towardthestars.localspecialties.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.minecraft.server.command.CommandManager;
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.command.Commands;
+import net.minecraft.command.CommandSource;
 
 public abstract class BasicCommand
 {
     public abstract String name();
-    abstract LiteralArgumentBuilder<ServerCommandSource> build(LiteralArgumentBuilder<ServerCommandSource> command);
+    abstract LiteralArgumentBuilder<CommandSource> build(LiteralArgumentBuilder<CommandSource> command);
 
 
-    void register(CommandDispatcher<ServerCommandSource> dispatcher)
+    void register(CommandDispatcher<CommandSource> dispatcher)
     {
-        dispatcher.register(this.build(CommandManager.literal(this.name())));
+        dispatcher.register(this.build(Commands.literal(this.name())));
     }
 }

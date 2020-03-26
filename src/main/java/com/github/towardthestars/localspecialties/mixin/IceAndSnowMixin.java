@@ -5,7 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.IceBlock;
 import net.minecraft.block.SnowBlock;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Random;
 
-import static net.minecraft.block.Block.dropStacks;
+import static net.minecraft.block.Block.spawnDrops;
 
 @Mixin({IceBlock.class, SnowBlock.class})
 public class IceAndSnowMixin
@@ -26,10 +26,10 @@ public class IceAndSnowMixin
     {
         if (state.getBlock() == Blocks.SNOW)
         {
-            if (world.getLightLevel(LightType.BLOCK, pos) > 11
+            if (world.getLightFor(LightType.BLOCK, pos) > 11
                 || EnvAttributes.TEMPERATURE.getAttribute(world, pos) >= 0.15
             ) {
-                dropStacks(state, world, pos);
+                spawnDrops(state, world, pos);
                 world.removeBlock(pos, false);
             }
             ci.cancel();
@@ -38,7 +38,7 @@ public class IceAndSnowMixin
         {
             if
             (
-                    world.getLightLevel(LightType.BLOCK, pos) > 11 - state.getOpacity(world, pos)
+                    world.getLightFor(LightType.BLOCK, pos) > 11 - state.getOpacity(world, pos)
                             || EnvAttributes.TEMPERATURE.getAttribute(world, pos) >= 0.15
             )
                 this.melt(state, world, pos);
@@ -53,7 +53,7 @@ public class IceAndSnowMixin
             world.removeBlock(pos, false);
         } else {
             world.setBlockState(pos, Blocks.WATER.getDefaultState());
-            world.updateNeighbor(pos, Blocks.WATER, pos);
+            world.neighborChanged(pos, Blocks.WATER, pos);
         }
     }
 }

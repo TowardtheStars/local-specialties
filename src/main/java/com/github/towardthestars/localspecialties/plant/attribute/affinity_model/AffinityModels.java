@@ -3,7 +3,7 @@ package com.github.towardthestars.localspecialties.plant.attribute.affinity_mode
 import com.github.towardthestars.localspecialties.LocalSpecialties;
 import com.github.towardthestars.localspecialties.Registries;
 import lombok.NoArgsConstructor;
-import net.minecraft.util.Identifier;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 
 import java.lang.reflect.InvocationTargetException;
@@ -23,11 +23,11 @@ public class AffinityModels
         Registry.register(Registries.AFFINITY_MODEL, LocalSpecialties.getIdentifier("boolean"), ModelBoolean.class);
     }
 
-    public static IAffinityModel create(Identifier id)
+    public static IAffinityModel create(ResourceLocation id)
     {
         try
         {
-            return Objects.requireNonNull(Registries.AFFINITY_MODEL.get(id)).getConstructor().newInstance();
+            return Objects.requireNonNull(Registries.AFFINITY_MODEL.getOrDefault(id)).getConstructor().newInstance();
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e)
         {
             e.printStackTrace();
@@ -35,7 +35,7 @@ public class AffinityModels
         return new ModelDefault0();
     }
 
-    public static IAffinityModel createWithArgs(Identifier id, Object... args)
+    public static IAffinityModel createWithArgs(ResourceLocation id, Object... args)
     {
         return create(id).withArgs(args);
     }

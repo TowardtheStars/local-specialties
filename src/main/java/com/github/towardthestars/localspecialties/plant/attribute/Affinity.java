@@ -2,7 +2,7 @@ package com.github.towardthestars.localspecialties.plant.attribute;
 
 
 import com.github.towardthestars.localspecialties.environment.attribute.EnvAttribute;
-import com.github.towardthestars.localspecialties.plant.attribute.model.IAffinityModel;
+import com.github.towardthestars.localspecialties.plant.attribute.affinity_model.IAffinityModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.text.Text;
