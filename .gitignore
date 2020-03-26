@@ -1,3 +1,5 @@
+.DS_Store
+
 # gradle
 
 .gradle/
@@ -20,7 +22,3 @@ bin/
 .classpath
 .project
 
-# fabric
-
-run/
-draft/
