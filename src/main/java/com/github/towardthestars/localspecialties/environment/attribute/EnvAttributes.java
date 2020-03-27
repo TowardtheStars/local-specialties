@@ -51,9 +51,9 @@ public class EnvAttributes
         {
             if (!Configs.MAIN.ENABLE_SEASON)
             {
-                return world.getBiome(pos).getRainfall();
+                return world.getBiome(pos).getDownfall();
             }
-            return world.getBiome(pos).getRainfall() + Seasons.getRainfall(world.getLevelProperties().getTime());
+            return world.getBiome(pos).getDownfall() + Seasons.getRainfall(world.getLevelProperties().getTime());
         }
     };
 
@@ -62,7 +62,7 @@ public class EnvAttributes
         @Override
         public Integer getAttribute(IWorld world, BlockPos pos)
         {
-            return world.getLightLevel(pos);
+            return world.getLight(pos);
         }
     };
 
@@ -71,7 +71,7 @@ public class EnvAttributes
         @Override
         public Integer getAttribute(IWorld world, BlockPos pos)
         {
-            return world.getLightLevel(LightType.SKY, pos);
+            return world.getLightFor(LightType.SKY, pos);
         }
     };
 
@@ -124,7 +124,7 @@ public class EnvAttributes
         @Override
         public Boolean getAttribute(IWorld world, BlockPos pos)
         {
-            return world.isSkyVisible(pos);
+            return world.canBlockSeeSky(pos);
         }
     };
 
@@ -137,7 +137,7 @@ public class EnvAttributes
                     world.getLevelProperties().isRaining()
                             || world.getLevelProperties().isThundering()
                     )
-                    && world.isSkyVisible(pos);
+                    && world.canBlockSeeSky(pos);
         }
     };
 
