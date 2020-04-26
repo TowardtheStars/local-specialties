@@ -1,12 +1,11 @@
 package com.github.towardthestars.localspecialties;
 
-import net.fabricmc.api.ClientModInitializer;
-
-public class LocalSpecialtiesClient implements ClientModInitializer
+public class LocalSpecialtiesClient
+//        implements ClientModInitializer
 {
-    @Override
+//    @Override
     public void onInitializeClient()
     {
-        BlockLoader.clientInit();
+//        BlockLoader.clientInit();
     }
 }

@@ -3,11 +3,10 @@
   "package": "com.github.towardthestars.localspecialties.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "HoeMixin",
-    "IceAndSnowMixin",
-    "NMM"
+    "FarmlandBlockMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "minVersion": "0.8"
 }

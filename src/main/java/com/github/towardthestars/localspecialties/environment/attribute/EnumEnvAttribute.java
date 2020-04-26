@@ -1,8 +1,9 @@
 package com.github.towardthestars.localspecialties.environment.attribute;
 
-import net.minecraft.util.StringIdentifiable;
 
-public abstract class EnumEnvAttribute<T extends Enum<T> & StringIdentifiable> extends AbstractEnvAttribute<T>
+import net.minecraft.util.IStringSerializable;
+
+public abstract class EnumEnvAttribute<T extends Enum<T> & IStringSerializable> extends AbstractEnvAttribute<T>
 {
 
     public EnumEnvAttribute(String name, Class<T> type)

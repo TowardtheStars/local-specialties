@@ -14,7 +14,8 @@ public class FarmLandHelper
 
     private static BlockState getDefaultStateWithFertility(int fertility)
     {
-        return BlockLoader.FARMLAND.getDefaultState().with(BlockFarmland.FERTILITY, fertility);
+//        return BlockLoader.FARMLAND.getDefaultState().with(BlockFarmland.FERTILITY, fertility);
+        return Blocks.FARMLAND.getDefaultState().with(LSProperties.FERTILITY, fertility);
     }
 
     public static void addDirtStateFertilityEntry(BlockState state, int fertility)

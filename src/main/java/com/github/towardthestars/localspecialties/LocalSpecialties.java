@@ -3,7 +3,6 @@ package com.github.towardthestars.localspecialties;
 import com.github.towardthestars.localspecialties.command.Commands;
 import com.github.towardthestars.localspecialties.config.Configs;
 import com.github.towardthestars.localspecialties.environment.Seasons;
-import com.github.towardthestars.localspecialties.plant.PlantBlockBase;
 import com.github.towardthestars.localspecialties.plant.Plants;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.event.RegistryEvent;
@@ -16,7 +15,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.net.URL;
-import java.util.Map;
 
 @Mod("localspecialties")
 public class LocalSpecialties
@@ -25,14 +23,14 @@ public class LocalSpecialties
     public static String MOD_ID = "localspecialties";
 
 
-    public void LocalSpecialties()
+    public LocalSpecialties()
     {
         LOGGER.info("Initializing Local Specialties");
         Configs.save();
-        if (Configs.MAIN.ENABLE_SEASON)
-        {
-            Seasons.load();
-        }
+//        if (Configs.MAIN.ENABLE_SEASON)
+//        {
+//            Seasons.load();
+//        }
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
@@ -56,7 +54,7 @@ public class LocalSpecialties
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
             Commands.registerAll();
             BlockLoader.registerAll();
-            EventHandlers.registerAll();
+//            EventHandlers.registerAll();
             Plants.registerBlocks();
         }
 

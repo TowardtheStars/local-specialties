@@ -2,7 +2,9 @@ package com.github.towardthestars.localspecialties.config;
 
 import com.github.towardthestars.localspecialties.LocalSpecialties;
 import com.github.towardthestars.localspecialties.plant.attribute.AssembleHelper;
-import net.minecraft.util.Identifier;
+import net.java.games.input.Component;
+
+import net.minecraft.util.ResourceLocation;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -25,7 +27,8 @@ public class PlantAffinityConfig extends AbstractConfig
                 {
                     for (File field : Objects.requireNonNull(namespace.listFiles()))
                     {
-                        Identifier identifier = new Identifier(namespace.getName(), field.getName());
+
+                        ResourceLocation identifier = new ResourceLocation(namespace.getName(), field.getName());
                         try
                         {
                             AssembleHelper.ATTRIBUTE_AFFINITY_MANAGER_MAP.put(identifier, AssembleHelper.fromFile(field));

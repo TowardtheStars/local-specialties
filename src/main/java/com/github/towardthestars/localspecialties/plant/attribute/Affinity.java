@@ -5,7 +5,7 @@ import com.github.towardthestars.localspecialties.environment.attribute.EnvAttri
 import com.github.towardthestars.localspecialties.plant.attribute.affinity_model.IAffinityModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import net.minecraft.text.Text;
+
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 
@@ -28,13 +28,13 @@ public class Affinity<ENV_ATTR_RET_TYPE>
     }
 
 
-    public Text toText()
-    {
-        return null; // TODO
-    }
-
-    public Text toSimpleText()
-    {
-        return null; // TODO
-    }
+//    public Text toText()
+//    {
+//        return null; // TODO
+//    }
+//
+//    public Text toSimpleText()
+//    {
+//        return null; // TODO
+//    }
 }

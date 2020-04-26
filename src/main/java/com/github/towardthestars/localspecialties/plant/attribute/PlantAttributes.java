@@ -5,7 +5,6 @@ import com.github.towardthestars.localspecialties.Registries;
 import com.github.towardthestars.localspecialties.plant.attribute.scheme.GrowthScheme;
 import com.github.towardthestars.localspecialties.plant.attribute.scheme.HarvestScheme;
 import com.github.towardthestars.localspecialties.plant.attribute.scheme.ViabilityScheme;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 

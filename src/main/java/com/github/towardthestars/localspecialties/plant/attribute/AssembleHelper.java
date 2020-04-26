@@ -1,7 +1,6 @@
 package com.github.towardthestars.localspecialties.plant.attribute;
 
 import com.github.towardthestars.localspecialties.Registries;
-import com.github.towardthestars.localspecialties.plant.PlantBlockBase;
 import com.github.towardthestars.localspecialties.plant.attribute.affinity_model.AffinityModels;
 import com.github.towardthestars.localspecialties.plant.attribute.affinity_model.IAffinityModel;
 import com.github.towardthestars.localspecialties.plant.attribute.merge_model.AffinityMergeMultiply;
@@ -11,9 +10,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 import lombok.experimental.Delegate;
-import net.minecraft.block.Block;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.util.ResourceLocation;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -25,7 +22,7 @@ public class AssembleHelper
 {
     public static final Gson gson = new Gson();
 
-    public static final Map<Identifier, AttributeAffinityManagerAssembler> ATTRIBUTE_AFFINITY_MANAGER_MAP = new HashMap<>();
+    public static final Map<ResourceLocation, AttributeAffinityManagerAssembler> ATTRIBUTE_AFFINITY_MANAGER_MAP = new HashMap<>();
 
     public static AttributeAffinityManagerAssembler fromFile(File file) throws FileNotFoundException
     {
@@ -35,21 +32,21 @@ public class AssembleHelper
         for (Map.Entry<String, JsonElement> entry :
                 obj.entrySet())
         {
-            manager.put(new Identifier(entry.getKey()), gson.fromJson(entry.getValue(), MergeModelAssembler.class));
+            manager.put(new ResourceLocation(entry.getKey()), gson.fromJson(entry.getValue(), MergeModelAssembler.class));
         }
         return manager;
     }
 
     public static void attachAffinityManager()
     {
-        for (Map.Entry<Identifier, AttributeAffinityManagerAssembler> entry :
+        for (Map.Entry<ResourceLocation, AttributeAffinityManagerAssembler> entry :
                 ATTRIBUTE_AFFINITY_MANAGER_MAP.entrySet())
         {
-            Block block = Registry.BLOCK.get(entry.getKey());
-            if (block instanceof PlantBlockBase)
-            {
-                ((PlantBlockBase) block).setAffinityManager(entry.getValue().build());
-            }
+//            Block block = Registry.BLOCK.get(entry.getKey());
+//            if (block instanceof PlantBlockBase)
+//            {
+//                ((PlantBlockBase) block).setAffinityManager(entry.getValue().build());
+//            }
         }
     }
 
@@ -60,14 +57,14 @@ public class AssembleHelper
     static class AttributeAffinityManagerAssembler implements IAssembler<AttributeAffinityManager>
     {
         @Delegate
-        final Map<Identifier, MergeModelAssembler> modelAssemblerMap = new HashMap<>();
+        final Map<ResourceLocation, MergeModelAssembler> modelAssemblerMap = new HashMap<>();
 
         @Override
         public AttributeAffinityManager build()
         {
             AttributeAffinityManager manager = new AttributeAffinityManager();
             forEach(((identifier, mergeModelAssembler) -> {
-                PlantAttribute attribute = Registries.PLANT_ATTRIBUTE.get(identifier);
+                PlantAttribute attribute = Registries.PLANT_ATTRIBUTE.getValue(identifier).get();
                 IMergeModel mergeModel = mergeModelAssembler.build();
                 manager.setPlantAttributeAffinityModel(attribute, mergeModel);
             }));
@@ -88,7 +85,7 @@ public class AssembleHelper
             IMergeModel model;
             try
             {
-                model = Registries.MERGE_MODEL.get(new Identifier(id)).newInstance();
+                model = Registries.MERGE_MODEL.getValue(new ResourceLocation(id)).get().newInstance();
             } catch (InstantiationException | IllegalAccessException e)
             {
                 e.printStackTrace();
@@ -117,7 +114,7 @@ public class AssembleHelper
         public Affinity build()
         {
             return new Affinity(
-                    Registries.ENV_ATTRIBUTE.get(new Identifier(boundAttribute)),
+                    Registries.ENV_ATTRIBUTE.getValue(new ResourceLocation(boundAttribute)).get(),
                     affinityModelAssembler.build(),
                     schemeParameterType
             );
@@ -134,7 +131,7 @@ public class AssembleHelper
         @Override
         public IAffinityModel build()
         {
-            return AffinityModels.createWithArgs(new Identifier(id), args);
+            return AffinityModels.createWithArgs(new ResourceLocation(id), args);
         }
     }
 

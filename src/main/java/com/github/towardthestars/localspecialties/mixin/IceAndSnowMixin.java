@@ -1,10 +1,7 @@
 package com.github.towardthestars.localspecialties.mixin;
 
 import com.github.towardthestars.localspecialties.environment.attribute.EnvAttributes;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.IceBlock;
-import net.minecraft.block.SnowBlock;
+import net.minecraft.block.*;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.LightType;
@@ -19,8 +16,13 @@ import java.util.Random;
 import static net.minecraft.block.Block.spawnDrops;
 
 @Mixin({IceBlock.class, SnowBlock.class})
-public class IceAndSnowMixin
+public class IceAndSnowMixin extends Block
 {
+    public IceAndSnowMixin(Properties properties)
+    {
+        super(properties);
+    }
+
     @Inject(at = @At("HEAD"), method = "scheduledTick")
     private void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci)
     {

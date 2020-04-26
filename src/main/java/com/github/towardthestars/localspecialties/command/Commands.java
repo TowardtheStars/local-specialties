@@ -1,6 +1,6 @@
 package com.github.towardthestars.localspecialties.command;
 
-import net.fabricmc.fabric.api.registry.CommandRegistry;
+
 
 public class Commands
 {
@@ -8,7 +8,7 @@ public class Commands
 
     private static void register(BasicCommand command, boolean dedicated)
     {
-        CommandRegistry.INSTANCE.register(dedicated, command::register);
+//        CommandRegistry.INSTANCE.register(dedicated, command::register);
     }
 
     public static void registerAll()

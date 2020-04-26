@@ -1,19 +1,14 @@
 package com.github.towardthestars.localspecialties.plant.attribute;
 
-import com.github.towardthestars.localspecialties.Registries;
-import com.github.towardthestars.localspecialties.plant.PlantBlockBase;
 import com.github.towardthestars.localspecialties.plant.attribute.merge_model.IMergeModel;
-import com.github.towardthestars.localspecialties.plant.attribute.scheme.GrowthScheme;
 import com.github.towardthestars.localspecialties.plant.attribute.scheme.HarvestScheme;
 import com.github.towardthestars.localspecialties.plant.attribute.scheme.ViabilityScheme;
 import com.github.towardthestars.localspecialties.util.IStatisticsScheme;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.server.ServerWorld;
 
 import java.util.*;
 
@@ -71,8 +66,8 @@ public class AttributeAffinityManager
         return this;
     }
 
-    public Text toText()
-    {
-        return new LiteralText("");
-    }
+//    public Text toText()
+//    {
+//        return new LiteralText("");
+//    }
 }

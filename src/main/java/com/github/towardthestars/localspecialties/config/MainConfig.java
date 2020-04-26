@@ -4,11 +4,11 @@ import java.io.File;
 
 public class MainConfig extends AbstractConfig
 {
-    public final boolean ENABLE_SEASON;
+//    public final boolean ENABLE_SEASON;
     MainConfig(File file)
     {
         super(file);
-        ENABLE_SEASON = config.getBoolean("enable_season", true);
-        config.set("enable_season", ENABLE_SEASON);
+//        ENABLE_SEASON = config.getBoolean("enable_season", true);
+//        config.set("enable_season", ENABLE_SEASON);
     }
 }

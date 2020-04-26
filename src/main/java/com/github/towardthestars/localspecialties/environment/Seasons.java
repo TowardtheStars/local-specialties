@@ -18,13 +18,14 @@ public class Seasons
 
     private static void generatePhaseFunc()
     {
-        temperatureInterpolation = Configs.SEASON.TEMPERATURE_SMOOTH.create();
-        rainfallInterpolation = Configs.SEASON.RAINFALL_SMOOTH.create();
+//        temperatureInterpolation = Configs.SEASON.TEMPERATURE_SMOOTH.create();
+//        rainfallInterpolation = Configs.SEASON.RAINFALL_SMOOTH.create();
         period = 0;
         Double[] xs = new Double[SEASONS.size() + 1];
         Double[] temperatures = new Double[SEASONS.size() + 1];
         Double[] rainfalls = new Double[SEASONS.size() + 1];
         int i = 0;
+
         // 从配置项里面加载特征点
         for (Season season : SEASONS)
         {
@@ -56,7 +57,7 @@ public class Seasons
         // 对于最后一个特征点, 由于其和第一个季节的配置完全相同, 故直接减去第一个季节的长度即可
         xs[SEASONS.size()] -= SEASONS.get(0).length;
 
-        // 计算插值函数
+        // calculate interpolation
         temperatureInterpolation.load(xs, temperatures);
         rainfallInterpolation.load(xs, rainfalls);
     }

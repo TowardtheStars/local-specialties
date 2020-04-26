@@ -9,7 +9,7 @@ import net.minecraft.util.registry.Registry;
 
 public class ItemLoader
 {
-    public static final BlockItem FARMLAND = new BlockItem(BlockLoader.FARMLAND, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS));
+//    public static final BlockItem FARMLAND = new BlockItem(BlockLoader.FARMLAND, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS));
 
     public static void register(ResourceLocation identifier, Item item)
     {
@@ -18,6 +18,6 @@ public class ItemLoader
 
     public static void registerAll()
     {
-        register(LocalSpecialties.getIdentifier("farmland"), FARMLAND);
+//        register(LocalSpecialties.getIdentifier("farmland"), FARMLAND);
     }
 }
