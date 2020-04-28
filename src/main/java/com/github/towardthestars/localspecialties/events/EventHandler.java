@@ -13,6 +13,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.event.entity.player.UseHoeEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -89,6 +90,24 @@ public class EventHandler
                 }
                 return ActionResultType.SUCCESS;
             }
+        }
+        return ActionResultType.PASS;
+    }
+
+    @SubscribeEvent
+    public ActionResultType fertilizeFarmland(BonemealEvent event)
+    {
+        BlockState state = event.getBlock();
+        if (state.getBlock() == Blocks.FARMLAND)
+        {
+            int fertility = state.get(LSProperties.FERTILITY);
+            if (fertility < 7)
+            {
+                if (!event.getWorld().isRemote)
+                    event.getWorld().setBlockState(event.getPos(), state.with(LSProperties.FERTILITY, fertility + 1), 2);
+                return ActionResultType.CONSUME;
+            }
+
         }
         return ActionResultType.PASS;
     }
