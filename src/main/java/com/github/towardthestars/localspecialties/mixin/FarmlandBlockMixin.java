@@ -1,11 +1,14 @@
 package com.github.towardthestars.localspecialties.mixin;
 
+import com.github.towardthestars.localspecialties.LocalSpecialties;
 import com.github.towardthestars.localspecialties.environment.soil.FarmLandHelper;
 import com.github.towardthestars.localspecialties.environment.soil.LSProperties;
 import com.github.towardthestars.localspecialties.plant.INutritionConsumer;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.FarmlandBlock;
+import net.minecraft.entity.Entity;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tags.FluidTags;
@@ -15,7 +18,11 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Iterator;
 import java.util.Random;
@@ -29,10 +36,24 @@ public class FarmlandBlockMixin extends Block
     public FarmlandBlockMixin(Properties properties)
     {
         super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(LSProperties.FERTILITY, 4).with(MOISTURE, 0));
     }
 
+    @Inject(method = "<init>", at = @At("RETURN"))
+    private void defaultBlockStateInjector(Properties builder, CallbackInfo ci)
+    {
+        this.setDefaultState(
+                this.stateContainer.getBaseState()
+                        .with(FERTILITY, 4)
+                        .with(MOISTURE, 0)
+        );
+    }
+
+
+    /**
+     * @author TowardtheStars
+     */
     @Override
+    @Overwrite
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)
     {
         builder.add(MOISTURE, LSProperties.FERTILITY);
@@ -89,7 +110,7 @@ public class FarmlandBlockMixin extends Block
             {
                 if (fertility > 0)
                 {
-                    world.setBlockState(pos, state.with(FERTILITY, fertility - 1));
+                    world.setBlockState(pos, state.with(FERTILITY, fertility - 1), 3);
                 }
                 else
                 {
@@ -112,11 +133,14 @@ public class FarmlandBlockMixin extends Block
 
     private static void setToDirt(BlockState state, World world, BlockPos pos) {
         int fertility = state.get(FERTILITY);
+        BlockState dirt = FarmLandHelper.getDirtStateForFertility(fertility);
+        LocalSpecialties.LOGGER.debug(String.format("Get dirt state for fertility %d: " + dirt.toString(), fertility));
         world.setBlockState(
                 pos,
                 nudgeEntitiesWithNewState(
-                        state, FarmLandHelper.getDirtStateForFertility(fertility), world, pos
-                )
+                        state, dirt, world, pos
+                ),
+                3
         );
 
     }
@@ -146,4 +170,10 @@ public class FarmlandBlockMixin extends Block
         }
         return MathHelper.clamp(waterCount / waterToMoisture, 0, 7);
     }
+
+    public int getFertility(BlockState state)
+    {
+        return state.get(FERTILITY);
+    }
+
 }

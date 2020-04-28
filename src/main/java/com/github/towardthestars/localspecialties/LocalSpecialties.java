@@ -3,6 +3,7 @@ package com.github.towardthestars.localspecialties;
 import com.github.towardthestars.localspecialties.command.Commands;
 import com.github.towardthestars.localspecialties.config.Configs;
 import com.github.towardthestars.localspecialties.environment.Seasons;
+import com.github.towardthestars.localspecialties.events.EventHandler;
 import com.github.towardthestars.localspecialties.plant.Plants;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.event.RegistryEvent;
@@ -34,7 +35,7 @@ public class LocalSpecialties
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
-
+        MinecraftForge.EVENT_BUS.register(new EventHandler());
 
     }
 

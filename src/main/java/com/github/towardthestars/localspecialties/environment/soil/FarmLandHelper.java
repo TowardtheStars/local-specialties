@@ -4,6 +4,7 @@ import com.github.towardthestars.localspecialties.BlockLoader;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,10 +22,7 @@ public class FarmLandHelper
     public static void addDirtStateFertilityEntry(BlockState state, int fertility)
     {
         STATE_FERTILITY_MAP.put(state, getDefaultStateWithFertility(fertility));
-        if (FERTILITY_TO_STATE[fertility] == null)
-        {
-            FERTILITY_TO_STATE[fertility] = state;
-        }
+
     }
 
 
@@ -39,11 +37,12 @@ public class FarmLandHelper
     }
 
     static {
-        addDirtStateFertilityEntry(Blocks.DIRT.getDefaultState(), 4);
+        setDefaultDirtStateForFertility(4, Blocks.DIRT.getDefaultState(), true);
         addDirtStateFertilityEntry(Blocks.GRASS_BLOCK.getDefaultState(), 4);
         addDirtStateFertilityEntry(Blocks.GRASS_PATH.getDefaultState(), 5);
-        addDirtStateFertilityEntry(Blocks.COARSE_DIRT.getDefaultState(), 2);
-        addDirtStateFertilityEntry(Blocks.PODZOL.getDefaultState(), 6);
+        setDefaultDirtStateForFertility(2, Blocks.COARSE_DIRT.getDefaultState(), true);
+        setDefaultDirtStateForFertility(6, Blocks.PODZOL.getDefaultState(), true);
+        setDefaultDirtStateForFertility(0, Blocks.GRAVEL.getDefaultState(), false);
     }
 
     public static BlockState getDirtStateForFertility(int fertility)
@@ -60,9 +59,15 @@ public class FarmLandHelper
      * @param state block state
      * @return Farmland BlockState with fertility
      */
+    @Nullable
     public static BlockState getFarmlandForDirt(BlockState state)
     {
-        return STATE_FERTILITY_MAP.get(state);
+        return STATE_FERTILITY_MAP.getOrDefault(state, null);
+    }
+
+    public static int getFertility(BlockState state)
+    {
+        return state.get(LSProperties.FERTILITY);
     }
 
 }
