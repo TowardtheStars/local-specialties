@@ -80,6 +80,7 @@ public class FarmlandBlockMixin extends Block
     {
         int moisturePresent = state.get(MOISTURE);
         int targetMoisture = getMoistureFromWaterNearby(world, pos);
+        targetMoisture = world.isRainingAt(pos.up()) ? Math.max(4, targetMoisture) : targetMoisture;
         if (targetMoisture == 0 && !world.isRainingAt(pos.up())) {
             if (moisturePresent > 0) {
                 world.setBlockState(pos, state.with(MOISTURE, moisturePresent - 1), 2);
