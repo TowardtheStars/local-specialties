@@ -8,13 +8,13 @@ import java.util.Random;
 
 public interface INutritionConsumer
 {
-    default boolean shouldConsumeFertility(World world, BlockPos pos, BlockState state, Random random)
+    default int consumedFertility(World world, BlockPos pos, BlockState state, Random random)
     {
-        return false;
+        return 0;
     }
 
-    default boolean shouldConsumeMoisture(World world, BlockPos pos, BlockState state, Random random)
+    default int consumedMoisture(World world, BlockPos pos, BlockState state, Random random)
     {
-        return false;
+        return 0;
     }
 }

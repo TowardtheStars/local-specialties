@@ -6,9 +6,7 @@ import com.github.towardthestars.localspecialties.environment.soil.LSProperties;
 import com.github.towardthestars.localspecialties.plant.INutritionConsumer;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.FarmlandBlock;
-import net.minecraft.entity.Entity;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tags.FluidTags;
@@ -107,28 +105,29 @@ public class FarmlandBlockMixin extends Block
             INutritionConsumer crop = (INutritionConsumer) cropState.getBlock();
             int fertility = state.get(FERTILITY);
             int moisture = state.get(MOISTURE);
-            if (crop.shouldConsumeFertility(world, pos, cropState, random))
+
+            fertility -= crop.consumedFertility(world, pos, cropState, random);
+
+            if (fertility >= 0)
             {
-                if (fertility > 0)
-                {
-                    world.setBlockState(pos, state.with(FERTILITY, fertility - 1), 3);
-                }
-                else
-                {
-                    setToDirt(state, world, pos);
-                }
+                world.setBlockState(pos, state.with(FERTILITY, fertility), 3);
             }
-            if (crop.shouldConsumeMoisture(world, pos, cropState, random))
+            else
             {
-                if (moisture > 0)
-                {
-                    world.setBlockState(pos, state.with(MOISTURE, state.get(MOISTURE) - 1));
-                }
-                else
-                {
-                    setToDirt(state, world, pos);
-                }
+                setToDirt(state, world, pos);
+                return;
             }
+            moisture -= crop.consumedMoisture(world, pos, cropState, random);
+            if (moisture >= 0)
+            {
+                world.setBlockState(pos, state.with(MOISTURE, moisture));
+            }
+            else
+            {
+                setToDirt(state, world, pos);
+                return;
+            }
+
         }
     }
 
