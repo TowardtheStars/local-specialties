@@ -2,9 +2,11 @@ package com.github.towardthestars.localspecialties;
 
 import com.github.towardthestars.localspecialties.command.Commands;
 import com.github.towardthestars.localspecialties.config.Configs;
-import com.github.towardthestars.localspecialties.environment.Seasons;
-import com.github.towardthestars.localspecialties.events.EventHandler;
+import com.github.towardthestars.localspecialties.config.MainConfig;
+import com.github.towardthestars.localspecialties.events.CropEventHandler;
+import com.github.towardthestars.localspecialties.events.FarmlandEventHandler;
 import com.github.towardthestars.localspecialties.plant.Plants;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -12,6 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.config.ModConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -28,15 +31,12 @@ public class LocalSpecialties
     {
         LOGGER.info("Initializing Local Specialties");
         Configs.save();
-//        if (Configs.MAIN.ENABLE_SEASON)
-//        {
-//            Seasons.load();
-//        }
-
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(new EventHandler());
+        MinecraftForge.EVENT_BUS.register(new FarmlandEventHandler());
+        MinecraftForge.EVENT_BUS.register(new CropEventHandler());
 
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MainConfig.commonSpec);
     }
 
     public static URL getResource(String path)
