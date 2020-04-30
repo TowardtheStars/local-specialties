@@ -1,21 +1,10 @@
 package com.github.towardthestars.localspecialties.environment.attribute;
 
-import com.github.towardthestars.localspecialties.LocalSpecialties;
-import com.github.towardthestars.localspecialties.Registries;
-import com.github.towardthestars.localspecialties.config.Configs;
-import com.github.towardthestars.localspecialties.environment.ItemEnvironmentChecker;
-import com.github.towardthestars.localspecialties.environment.Seasons;
-import com.github.towardthestars.localspecialties.environment.soil.BlockFarmland;
-import com.github.towardthestars.localspecialties.environment.soil.FarmLandHelper;
 import com.github.towardthestars.localspecialties.environment.soil.LSProperties;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FarmlandBlock;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.IWorld;
-import net.minecraft.world.biome.Biome;
-
-import java.util.Optional;
 
 public class EnvAttributes
 {
@@ -146,11 +135,11 @@ public class EnvAttributes
 //    }
 
 
-    private static void register(EnvAttribute... attributes)
+    private static void register(IEnvAttribute... attributes)
     {
-        for (EnvAttribute attribute: attributes)
+        for (IEnvAttribute attribute: attributes)
         {
-            Registry.register(Registries.ENV_ATTRIBUTE, LocalSpecialties.getIdentifier(attribute.getName()), attribute);
+            ;
         }
 
     }

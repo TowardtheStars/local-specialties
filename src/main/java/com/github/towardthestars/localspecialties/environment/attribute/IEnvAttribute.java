@@ -2,11 +2,10 @@ package com.github.towardthestars.localspecialties.environment.attribute;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 
-public interface EnvAttribute<T>
+public interface IEnvAttribute<T> extends IForgeRegistryEntry<IEnvAttribute>
 {
-    String getName();
     Class<T> getType();
     T getAttribute(IWorld world, BlockPos pos);
-    String getTranslateKey();
 }
