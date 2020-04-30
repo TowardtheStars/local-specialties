@@ -19,7 +19,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber
-public class EventHandler
+public class FarmlandEventHandler
 {
     @SubscribeEvent
     public ActionResultType onHoeUse(UseHoeEvent event)
