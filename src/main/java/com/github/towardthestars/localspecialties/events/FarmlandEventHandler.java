@@ -1,11 +1,11 @@
 package com.github.towardthestars.localspecialties.events;
 
 import com.github.towardthestars.localspecialties.LocalSpecialties;
+import com.github.towardthestars.localspecialties.config.MainConfig;
 import com.github.towardthestars.localspecialties.environment.soil.FarmLandHelper;
 import com.github.towardthestars.localspecialties.environment.soil.LSProperties;
 import com.github.towardthestars.localspecialties.util.BlockStateFlag;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
@@ -31,6 +31,7 @@ public class FarmlandEventHandler
         PlayerEntity playerEntity = event.getPlayer();
         if (state.getBlock() == Blocks.FARMLAND)
         {
+            // "松土"
             world.playSound(playerEntity, pos, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
             if (!world.isRemote)
             {
@@ -66,14 +67,15 @@ public class FarmlandEventHandler
                 }
                 if (playerEntity != null)
                 {
-                    event.getContext().getItem().damageItem(1, playerEntity, (p_220043_1_) ->
+                    event.getContext().getItem().damageItem(1, playerEntity, (playerEntity1) ->
                     {
-                        p_220043_1_.sendBreakAnimation(context.getHand());
+                        playerEntity1.sendBreakAnimation(context.getHand());
                     });
                 }
             }
             return ActionResultType.SUCCESS;
         }else{
+            // 土地变耕地
             BlockState turnTo = FarmLandHelper.getFarmlandForDirt(state);
             if (turnTo != null)
             {
@@ -110,5 +112,24 @@ public class FarmlandEventHandler
 
         }
         return ActionResultType.PASS;
+    }
+
+    @SubscribeEvent
+    public ActionResultType useBoneMeal(BonemealEvent event)
+    {
+        if (MainConfig.COMMON.disableBoneMealGrowing.get())
+            return ActionResultType.PASS;
+        if (event.getBlock().getBlock() instanceof CropsBlock)
+        {
+            World world = event.getWorld();
+            BlockPos pos = event.getPos().down();
+            BlockState state = world.getBlockState(pos);
+            if (state.getBlock() == Blocks.FARMLAND)
+            {
+                return fertilizeFarmland(event);
+            }
+        }
+        return ActionResultType.PASS;
+
     }
 }
