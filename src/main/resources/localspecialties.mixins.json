@@ -3,7 +3,8 @@
   "package": "com.github.towardthestars.localspecialties.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "FarmlandBlockMixin"
+    "FarmlandBlockMixin",
+    "CropsBlockMixin"
   ],
   "injectors": {
     "defaultRequire": 1

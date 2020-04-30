@@ -1,6 +1,7 @@
 package com.github.towardthestars.localspecialties.events;
 
 import com.github.towardthestars.localspecialties.plant.ICrop;
+import lombok.Getter;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
@@ -9,6 +10,7 @@ import net.minecraftforge.eventbus.api.Cancelable;
 
 public class CropEvent extends BlockEvent
 {
+    @Getter
     private final ICrop block;
     CropEvent(IWorld world, BlockPos pos, BlockState state)
     {

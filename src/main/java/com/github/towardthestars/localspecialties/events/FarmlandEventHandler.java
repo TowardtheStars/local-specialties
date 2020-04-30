@@ -19,6 +19,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber
+@SuppressWarnings("unused")
 public class FarmlandEventHandler
 {
     @SubscribeEvent
